@@ -1,3 +1,2 @@
 #!/bin/bash
-random=$(openssl rand -hex 8)
-echo -n "$1$random" | openssl dgst -sha512 > 3_hash.txt
+openssl rand -hex 8 | xargs -I{} echo -n "$1{}" | openssl dgst -sha512 > 3_hash.txt
