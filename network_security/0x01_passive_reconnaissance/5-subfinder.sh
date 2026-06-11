@@ -1,8 +1,2 @@
 #!/bin/bash
-
-domain=$1
-
-subfinder -silent -d "$domain" | while read sub; do
-    ip=$(dig +short "$sub" | head -n 1)
-    echo "$sub,$ip"
-done > "$domain.txt"
+subfinder -silent -d "$1" | awk '{cmd="dig +short " $0; cmd | getline ip; close(cmd); print $0","ip}' > "$1.txt"
